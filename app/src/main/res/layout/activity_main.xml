@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         >
         <LinearLayout
+            android:id = "@+id/button"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content"
@@ -20,17 +21,15 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text = "2048"
                 android:textSize="100dp"
-                android:textColor="#bbada0"
+                android:textColor="#bbada0"/>
 
-                />
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="8dp"
@@ -44,8 +43,10 @@
                     android:layout_height="wrap_content"
                     android:background="#bbada0"
                     android:textColor="#ffffff"
-                    android:text="Score"
+                    android:text="@string/score"
                     android:textSize="32dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
 
                     />
                 <TextView
@@ -57,25 +58,30 @@
                     android:gravity="center"
                     android:textColor="#bbada0"
                     />
+
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
-                android:paddingRight="8dp"
+                android:paddingRight="0dp"
                 >
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Best"
+                    android:text="@string/bestscore"
                     android:background="#bbada0"
                     android:textColor="#ffffff"
-                    android:textSize="32dp" />
+                    android:textSize="32dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    />
+
 
                 <TextView
                     android:id="@+id/tvBest"
@@ -85,6 +91,15 @@
                     android:gravity="center"
                     android:textColor="#bbada0"
                     />
+                <Button
+                    android:id="@+id/rsbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#bbada0"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"
+                    android:text="@string/restart" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -100,17 +115,18 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/how"
             android:textColor="#bbada0"
             android:textSize="38dp"
-            android:paddingTop="50dp"
-            android:paddingBottom="83dp"
-
+            android:paddingTop="38dp"
+            android:paddingBottom="80dp"
+            android:layout_gravity="center"
             />
     </LinearLayout>
 

@@ -4,20 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by RenXiaoyu on 2017/7/12.
- */
 
+
+
+/*游戏界面实现*/
 public class GameView extends GridLayout {
     public GameView(Context context) {
 
@@ -34,10 +32,13 @@ public class GameView extends GridLayout {
         super(context, attrs, defStyleAttr);
         initGameView();
     }
+    /*初始化游戏界面*/
     private void initGameView(){
         /*设置列数*/
         setColumnCount(4);
+        /*设置背景颜色*/
         setBackgroundColor(0xffbbada0);
+        /*判断用户手势*/
         setOnTouchListener(new OnTouchListener() {
             private float startX,startY;//起始位置
             private float endX,endY;//终点位置
@@ -84,7 +85,9 @@ public class GameView extends GridLayout {
                 return true;
             }
         });
+
     }
+    /*生成随机数字卡片*/
     private void addRandomNum()
     {
         emptyPoints.clear();
@@ -98,33 +101,46 @@ public class GameView extends GridLayout {
                  }
              }
          }
+         /*随机获取空点*/
          Point p = emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
+        /*按9:1的概率生成2和4*/
         cardsMap[p.x][p.y].setNumber(Math.random()>0.1?2:4);
     }
     private void MoveLeft()
     {
+        /*观察者，用于观察是否发生合并*/
         boolean merge = false;
+        /*检测到动作后发出播放音效*/
         MainActivity.getMainActivity().sound();
         for(int y = 0;y<4;y++)
         {
             for(int x = 0;x<4;x++)
             {
+                /*从当前位置向右扫描*/
                 for(int x1 = x+1;x1<4;x1++)
                 {
                     if(cardsMap[x1][y].getNumber()>0)
                     {
+                        /*当前值为0*/
                         if(cardsMap[x][y].getNumber()<=0)
                         {
+                            /*空位左移*/
                             cardsMap[x][y].setNumber(cardsMap[x1][y].getNumber());
+                            /*清空*/
                             cardsMap[x1][y].setNumber(0);
+                            /*避免202不合并*/
                             x--;
                             merge = true;
                         }
+                        /*相同，可合并*/
                         else if(cardsMap[x][y].equals(cardsMap[x1][y]))
                         {
+                            /*左移，合并，数字显示为原先的2倍*/
                             cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
                             cardsMap[x1][y].setNumber(0);
+                            /*发生合并，增加相应的分数*/
                             MainActivity.getMainActivity().addScore(cardsMap[x][y].getNumber());
+                            /*更新最高分*/
                             updateBest();
                             merge = true;
                         }
@@ -135,14 +151,18 @@ public class GameView extends GridLayout {
         }
         if(merge)
         {
+            /*每一步之后都要添加新的卡片*/
             addRandomNum();
+            /*检查游戏是否结束*/
             checkComplete();
         }
     }
+    /*右，上，下，操作类似，在此不做赘述*/
     private void MoveRight()
     {
         boolean merge = false;
         MainActivity.getMainActivity().sound();
+
         for(int y = 0;y<4;y++)
         {
             for(int x = 3;x>=0;x--)
@@ -219,6 +239,7 @@ public class GameView extends GridLayout {
     {
         boolean merge  = false;
         MainActivity.getMainActivity().sound();
+
         for(int x = 0;x<4;x++)
         {
             for(int y = 3;y>=0;y--)
@@ -259,6 +280,7 @@ public class GameView extends GridLayout {
     {
         super.onSizeChanged(w,h,oldw,oldh);
         /*计算卡牌尺寸*/
+        /*为了适配各类型的手机*/
         int cardSize = (Math.min(w,h)-10)/4;
         addCards(cardSize);
         startGame();
@@ -277,13 +299,10 @@ public class GameView extends GridLayout {
             }
         }
     }
-    /*用于绘制动画效果*/
-
-    private void startGame(){
+    /*开始游戏*/
+    public void startGame(){
         //初始化
-//        MainActivity.getMainActivity().clearScore();
         MainActivity.getMainActivity().clearScore();
-
         for(int y = 0;y<4;y++)
         {
             for(int x = 0;x<4;x++)
@@ -291,12 +310,13 @@ public class GameView extends GridLayout {
                 cardsMap[x][y].setNumber(0);
             }
         }
-        //添加随机数
+        //添加随机卡片
         addRandomNum();
         addRandomNum();
     }
+    /*检查游戏是否结束*/
     private void checkComplete(){
-
+        /*设置观察者*/
         boolean complete = true;
 
         ALL:
@@ -313,7 +333,7 @@ public class GameView extends GridLayout {
                 }
             }
         }
-
+        /*根据观察者的记录做出相应的处理*/
         if (complete) {
             new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重来", new DialogInterface.OnClickListener() {
 
@@ -328,10 +348,13 @@ public class GameView extends GridLayout {
     private void updateBest()
     {
         int bestscore,score;
+        /*由于最高分只是一个数字存储简单，因此不需创建数据库*/
+        /*只需使用Android平台上一个轻量级的存储类，用来保存应用的一些常用配置*/
         SharedPreferences sp = getContext().getSharedPreferences("game2048",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         score = MainActivity.getMainActivity().getScore();
         bestscore =     sp.getInt("best",0);
+        /*如果当前分数高于以往成绩，则将新的最高分存储*/
         if(bestscore<score)
         {
             editor.putInt("best",score);
@@ -339,8 +362,9 @@ public class GameView extends GridLayout {
             editor.commit();
         }
     }
-
+    /*二维数组存储卡片信息*/
     private Card[][] cardsMap = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
+
 
 }

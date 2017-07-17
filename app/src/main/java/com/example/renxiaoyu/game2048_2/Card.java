@@ -5,11 +5,9 @@ import android.widget.FrameLayout;
 import android.content.Context;
 import android.widget.TextView;
 
-/**
- * Created by RenXiaoyu on 2017/7/12.
- */
 
 public class Card extends FrameLayout {
+    /*用来显示游戏中的小方块以及其上的数字*/
     private int number = 0;
     private TextView tvNumber;
     public Card(Context context)
@@ -17,20 +15,26 @@ public class Card extends FrameLayout {
         super(context);
         //初始化tvNumber
         tvNumber = new TextView(getContext());
+        /*设置数字大小*/
         tvNumber.setTextSize(32);
+        /*设置数字位置居中*/
         tvNumber.setGravity(Gravity.CENTER);
+        /*设置数字背景颜色*/
         tvNumber.setBackgroundColor(0x33ffffff);
         //添加tvNumber
         LayoutParams lp = new LayoutParams(-1,-1);
+        /*设置偏移量*/
         lp.setMargins(10,10,0,0);
         addView(tvNumber,lp);
 
         setNumber(0);//初始化数字为0
     }
+    /*获取卡片数字*/
     public int getNumber()
     {
         return number;
     }
+    /*设置卡片数字*/
     public void setNumber(int number)
     {
         this.number = number;
@@ -42,6 +46,7 @@ public class Card extends FrameLayout {
         {
             tvNumber.setText(number + "");
         }
+        /*根据数字的不同显示不同的背景颜色*/
         switch (number)
         {
             case 0:
