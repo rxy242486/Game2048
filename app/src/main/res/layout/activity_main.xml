@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/pic2"
     tools:context="com.example.renxiaoyu.game2048_2.MainActivity">
     <LinearLayout
         android:layout_width="fill_parent"
@@ -12,7 +13,6 @@
         android:orientation="horizontal"
         >
         <LinearLayout
-            android:id = "@+id/button"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text = "2048"
                 android:textSize="100dp"
-                android:textColor="#bbada0"/>
+                android:textColor="#ffffff"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -41,7 +41,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#bbada0"
+                    android:background="@android:color/transparent"
                     android:textColor="#ffffff"
                     android:text="@string/score"
                     android:textSize="32dp"
@@ -56,7 +56,7 @@
                     android:text = "0"
                     android:textSize="32dp"
                     android:gravity="center"
-                    android:textColor="#bbada0"
+                    android:textColor="#ffffff"
                     />
 
             </LinearLayout>
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bestscore"
-                    android:background="#bbada0"
+                    android:background="@android:color/transparent"
                     android:textColor="#ffffff"
                     android:textSize="32dp"
                     android:paddingLeft="8dp"
@@ -89,13 +89,13 @@
                     android:layout_height="wrap_content"
                     android:textSize="32dp"
                     android:gravity="center"
-                    android:textColor="#bbada0"
+                    android:textColor="#ffffff"
                     />
                 <Button
                     android:id="@+id/rsbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#bbada0"
+                    android:background="@android:color/transparent"
                     android:textColor="#ffffff"
                     android:layout_gravity="center"
                     android:text="@string/restart" />
@@ -109,7 +109,9 @@
     <com.example.renxiaoyu.game2048_2.GameView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        >
 
     </com.example.renxiaoyu.game2048_2.GameView>
     <LinearLayout
@@ -122,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/how"
-            android:textColor="#bbada0"
+            android:textColor="#ffffff"
             android:textSize="38dp"
             android:paddingTop="38dp"
             android:paddingBottom="80dp"

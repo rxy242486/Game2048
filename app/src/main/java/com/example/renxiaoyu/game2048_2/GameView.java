@@ -37,7 +37,7 @@ public class GameView extends GridLayout {
         /*设置列数*/
         setColumnCount(4);
         /*设置背景颜色*/
-        setBackgroundColor(0xffbbada0);
+//        setBackgroundColor(0xffbbada0);
         /*判断用户手势*/
         setOnTouchListener(new OnTouchListener() {
             private float startX,startY;//起始位置
